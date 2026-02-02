@@ -215,16 +215,31 @@ function setHeaderVisibility() {
   else header.classList.remove('is-scrolled');
 }
 
+// Store scroll position when menu opens
+let scrollPosition = 0;
+
 function closeMobileNav() {
   if (!nav || !navToggle) return;
   nav.classList.remove('is-open');
   navToggle.setAttribute('aria-expanded', 'false');
+  // Restore body scrolling
+  document.body.style.overflow = '';
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.width = '';
+  window.scrollTo(0, scrollPosition);
 }
 
 function openMobileNav() {
   if (!nav || !navToggle) return;
   nav.classList.add('is-open');
   navToggle.setAttribute('aria-expanded', 'true');
+  // Prevent body scrolling when menu is open
+  scrollPosition = window.scrollY;
+  document.body.style.overflow = 'hidden';
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${scrollPosition}px`;
+  document.body.style.width = '100%';
 }
 
 if (navToggle && nav) {
@@ -897,6 +912,9 @@ document.addEventListener('DOMContentLoaded', () => {
   themeManager.init();
   animationSystem.init();
   
+  // Initialize typing animation
+  initTypingAnimation();
+  
   // Hide loading screen after page load
   const pageLoading = document.getElementById('page-loading');
   if (pageLoading) {
@@ -908,3 +926,59 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 1000);
   }
 });
+
+// Typing Animation Function
+function initTypingAnimation() {
+  const typedTextElement = document.getElementById('typed-text');
+  if (!typedTextElement) return;
+  
+  const roles = [
+    'fullstack developer',
+    'designer',
+    'engineer',
+    'problem solver',
+    'creative thinker',
+    'tech enthusiast',
+    'innovator',
+    'coder'
+  ];
+  
+  let currentRoleIndex = 0;
+  let currentCharIndex = 0;
+  let isDeleting = false;
+  let typingSpeed = 100;
+  let deletingSpeed = 50;
+  let pauseTime = 2000;
+  
+  function typeText() {
+    const currentRole = roles[currentRoleIndex];
+    
+    if (isDeleting) {
+      // Deleting text
+      typedTextElement.textContent = currentRole.substring(0, currentCharIndex - 1);
+      currentCharIndex--;
+      
+      if (currentCharIndex === 0) {
+        isDeleting = false;
+        currentRoleIndex = (currentRoleIndex + 1) % roles.length;
+        setTimeout(typeText, 500); // Pause before typing new word
+      } else {
+        setTimeout(typeText, deletingSpeed);
+      }
+    } else {
+      // Typing text
+      typedTextElement.textContent = currentRole.substring(0, currentCharIndex + 1);
+      currentCharIndex++;
+      
+      if (currentCharIndex === currentRole.length) {
+        isDeleting = true;
+        setTimeout(typeText, pauseTime); // Pause before deleting
+      } else {
+        setTimeout(typeText, typingSpeed);
+      }
+    }
+  }
+  
+  // Start typing animation
+  typeText();
+}
