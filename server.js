@@ -1,62 +1,86 @@
-require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
+const nodemailer = require('nodemailer');
 const cors = require('cors');
-const helmet = require('helmet');
-const rateLimit = require('express-rate-limit');
+const bodyParser = require('body-parser');
 const path = require('path');
 
-// Import routes
-const authRoutes = require('./routes/auth');
-const messageRoutes = require('./routes/messages');
-const memoriesRoutes = require('./routes/memories');
-const documentsRoutes = require('./routes/documents');
-
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-// Security middleware
-app.use(helmet());
-app.use(cors({
-    origin: process.env.ALLOWED_ORIGINS.split(','),
-    credentials: true
-}));
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('.'));
 
-// Rate limiting
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100 // limit each IP to 100 requests per windowMs
-});
-app.use(limiter);
-
-// Body parser
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ extended: true, limit: '50mb' }));
-
-// Static files
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-// Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/messages', messageRoutes);
-app.use('/api/memories', memoriesRoutes);
-app.use('/api/documents', documentsRoutes);
-
-// Error handling middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(err.status || 500).json({
-        success: false,
-        error: err.message || 'Server Error'
-    });
+// Email configuration
+const transporter = nodemailer.createTransporter({
+    service: 'gmail',
+    auth: {
+        user: 'harishahi592@gmail.com',
+        pass: 'your-app-password' // Use app password for Gmail
+    }
 });
 
-// Database connection
-mongoose.connect(process.env.MONGODB_URI)
-    .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.error('MongoDB connection error:', err));
+// Contact form endpoint
+app.post('/contact', async (req, res) => {
+    try {
+        const { name, email, subject, message, website } = req.body;
+
+        // Honeypot check
+        if (website) {
+            return res.status(400).json({ success: false, error: 'Spam detected' });
+        }
+
+        // Validation
+        if (!name || !email || !subject || !message) {
+            return res.status(400).json({ success: false, error: 'All fields are required' });
+        }
+
+        if (!email.includes('@')) {
+            return res.status(400).json({ success: false, error: 'Invalid email address' });
+        }
+
+        if (message.length < 10) {
+            return res.status(400).json({ success: false, error: 'Message must be at least 10 characters' });
+        }
+
+        // Email content
+        const mailOptions = {
+            from: 'Portfolio Contact <noreply@yourdomain.com>',
+            to: 'harishahi592@gmail.com',
+            subject: `[Portfolio Contact] ${subject}`,
+            text: `You have a new message from your portfolio contact form.
+
+Name: ${name}
+Email: ${email}
+Subject: ${subject}
+
+Message:
+${message}
+
+Sent at: ${new Date().toLocaleString()}
+IP Address: ${req.ip || req.connection.remoteAddress}`
+        };
+
+        // Send email
+        await transporter.sendMail(mailOptions);
+        
+        res.json({ success: true, message: 'Message sent successfully' });
+
+    } catch (error) {
+        console.error('Error sending email:', error);
+        res.status(500).json({ success: false, error: 'Failed to send message. Please try again later.' });
+    }
+});
+
+// Serve the main website
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 // Start server
-const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-}); 
+    console.log(`Server running on port ${PORT}`);
+    console.log(`Contact form endpoint: http://localhost:${PORT}/contact`);
+});

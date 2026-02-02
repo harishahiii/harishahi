@@ -1,140 +1,56 @@
-# Portfolio Website Backend
+# Modern Minimalist Portfolio
 
-A robust Node.js backend for the portfolio website with features including authentication, contact form, file management, and memories gallery.
+A clean, responsive personal portfolio with all sections and a working contact form that sends messages to **harishahi592@gmail.com**.
 
-## Features
+## Files
 
-- **Authentication System**
-  - JWT-based authentication
-  - Role-based access control (Admin/User)
-  - Secure password hashing
-  - Token-based session management
+- `index.html` — Main page with all sections
+- `styles.css` — Modern minimalist theme (teal/coral accents)
+- `main.js` — Interactions (sticky nav, filters, carousel, form)
+- `contact.php` — PHP mailer (sends form submissions to your email)
+- `.htaccess` — Basic PHP settings for shared hosting
+- `assets/logo.svg` — Placeholder logo (swap with yours)
 
-- **Contact Form**
-  - Rate-limited message submission
-  - Message management for admins
-  - Read/unread status tracking
-  - Device information tracking
+## How the contact form works
 
-- **Memories Gallery**
-  - Image and video upload support
-  - Automatic thumbnail generation
-  - File type validation
-  - Size limits and optimization
-  - Pagination and filtering
+1. User fills the form and clicks Send.
+2. JavaScript validates client-side, then POSTs to `contact.php`.
+3. `contact.php` sanitizes inputs, checks a honeypot field, and uses PHP’s `mail()` to send the message to `harishahi592@gmail.com`.
+4. The page shows a toast and inline feedback without reloading.
 
-- **Security Features**
-  - CORS protection
-  - Rate limiting
-  - Helmet security headers
-  - Input validation
-  - File upload restrictions
+## Local testing
 
-## Setup
+- **PHP server needed** (mail won’t send from static file://).  
+  Quick start with PHP built-in server:
+  ```bash
+  cd d:/private/website/wind
+  php -S localhost:8000
+  ```
+- Open `http://localhost:8000` in your browser.
+- Test the form; check your inbox (and spam folder).
 
-1. Install dependencies:
-   ```bash
-   npm install
-   ```
+## Deploying
 
-2. Create required directories:
-   ```bash
-   mkdir -p uploads/memories/thumbnails
-   ```
+- Upload the entire folder to a PHP-enabled host (most shared hosts support PHP).
+- Ensure `mail()` works (most hosts allow it; some require SMTP config via `php.ini` or a library like PHPMailer).
+- If emails don’t arrive, check:
+  - Spam folder
+  - Host’s error logs
+  - Whether the host requires SMTP authentication
 
-3. Create a `.env` file with the following variables:
-   ```
-   PORT=3000
-   MONGODB_URI=mongodb://localhost:27017/portfolio
-   JWT_SECRET=your-super-secret-jwt-key
-   JWT_EXPIRE=7d
-   MAX_FILE_SIZE=50000000
-   ALLOWED_ORIGINS=http://localhost:5500,http://127.0.0.1:5500
-   ```
+## Customization tips
 
-4. Start MongoDB:
-   ```bash
-   # Make sure MongoDB is running on your system
-   ```
+- Replace placeholder “Your Name” and contact details in `index.html`.
+- Swap `assets/logo.svg` with your real logo.
+- Add your actual portfolio projects, blog posts, and testimonials.
+- For advanced email delivery (attachments, HTML, templates), replace `contact.php` with PHPMailer or similar.
 
-5. Start the server:
-   ```bash
-   # Development mode
-   npm run dev
+## Security notes
 
-   # Production mode
-   npm start
-   ```
+- Form includes a honeypot field to reduce spam.
+- All inputs are sanitized before email.
+- No sensitive data is exposed client-side.
 
-## API Endpoints
+---
 
-### Authentication
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - Login user
-- `GET /api/auth/me` - Get current user
-- `PUT /api/auth/updatedetails` - Update user details
-- `PUT /api/auth/updatepassword` - Update password
-
-### Messages
-- `POST /api/messages` - Submit a message
-- `GET /api/messages` - Get all messages (admin)
-- `GET /api/messages/unread` - Get unread count (admin)
-- `PUT /api/messages/:id/read` - Mark as read (admin)
-- `DELETE /api/messages/:id` - Delete message (admin)
-
-### Memories
-- `POST /api/memories` - Upload memories (admin)
-- `GET /api/memories` - Get all memories
-- `DELETE /api/memories/:id` - Delete memory (admin)
-- `PUT /api/memories/:id` - Update memory details (admin)
-
-## Security Considerations
-
-1. Set strong JWT_SECRET in production
-2. Use HTTPS in production
-3. Configure ALLOWED_ORIGINS for your domain
-4. Regular security updates
-5. Monitor server logs
-6. Backup database regularly
-
-## Error Handling
-
-The API uses consistent error responses:
-```json
-{
-    "success": false,
-    "error": "Error message here"
-}
-```
-
-## File Upload Limits
-
-- Maximum file size: 50MB
-- Supported formats: Images (jpg, png, gif) and Videos (mp4, mov)
-- Maximum files per upload: 10
-- Automatic thumbnail generation for images
-
-## Development
-
-1. Use nodemon for development:
-   ```bash
-   npm run dev
-   ```
-
-2. Monitor logs:
-   ```bash
-   tail -f logs/error.log
-   ```
-
-## Production Deployment
-
-1. Set production environment variables
-2. Use PM2 or similar process manager
-3. Set up Nginx reverse proxy
-4. Enable SSL/TLS
-5. Configure proper CORS settings
-6. Set up monitoring and logging
-
-## License
-
-MIT License 
+Enjoy your new portfolio! 🚀
