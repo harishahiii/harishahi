@@ -49,10 +49,11 @@ input[type="submit"] {
   /* Brand Colors */
   --primary: #1e40af;
   --secondary: #3730a3;
-  --accent: #34d399; /* Changed from blue to bright green */
-  --teal: #0d9488;
+  /* Deeper, richer green accents in dark mode */
+  --accent: #16a34a;
+  --teal: #0f766e;
   --coral: #dc2626;
-  --emerald: #10b981; /* Changed to brighter green */
+  --emerald: #15803d;
   --amber: #d97706;
   --rose: #e11d48;
   --cyan: #34d399; /* Changed from blue to bright green */
@@ -123,10 +124,11 @@ input[type="submit"] {
   /* Brand Colors - Adjusted for light mode */
   --primary: #dc2626; /* Bright Red */
   --secondary: #800000; /* Maroon */
-  --accent: #ef4444; /* Light Red */
-  --teal: #0d9488;
+  /* Deeper green accents in light mode where green is used */
+  --accent: #16a34a;
+  --teal: #0f766e;
   --coral: #dc2626;
-  --emerald: #059669;
+  --emerald: #15803d;
   --amber: #d97706;
   --rose: #e11d48;
   --cyan: #0891b2;
@@ -764,10 +766,7 @@ img{max-width:100%;display:block}
   color: var(--accent) !important; /* Green accent */
 }
 
-.nav-link:nth-child(3n):hover {
-  color: var(--accent) !important; /* Green accent on every 3rd nav link */
-}
-
+/* Keep text links accent, but make nav links consistent color */
 .text-link:nth-child(even) {
   color: var(--accent) !important; /* Green accent on even text links */
 }
@@ -2413,22 +2412,10 @@ textarea.form-input {
   background: linear-gradient(90deg, var(--deep-yellow), var(--yellow-light));
 }
 
-/* Light mode links and accents */
+/* Light mode links and accents - make all nav items the same on hover */
 [data-theme="light"] .nav-link:hover {
   color: #dc2626;
   background: rgba(220, 38, 38, 0.08);
-}
-
-/* Alternate nav links with purple */
-[data-theme="light"] .nav-link:nth-child(3n):hover {
-  color: var(--deep-purple);
-  background: rgba(76, 29, 149, 0.08);
-}
-
-/* Alternate nav links with yellow */
-[data-theme="light"] .nav-link:nth-child(4n):hover {
-  color: var(--deep-yellow);
-  background: rgba(245, 158, 11, 0.08);
 }
 
 [data-theme="light"] .text-link {
@@ -3595,6 +3582,11 @@ input:focus,textarea:focus{border-color:rgba(20,184,166,.55);box-shadow:0 0 0 4p
     padding: 30px 0 20px;
     min-height: 50vh;
   }
+
+  /* Completely hide mouse scroll indicator on small devices */
+  .scroll-indicator{
+    display:none;
+  }
   
   .hero-inner {
     gap: 20px;
@@ -4495,11 +4487,7 @@ input:focus,textarea:focus{border-color:rgba(20,184,166,.55);box-shadow:0 0 0 4p
   from{opacity:0;transform:translateY(20px)}
   to{opacity:1;transform:translateY(0)}
 }
-@keyframes clickPulse{
-  0%{transform:scale(1)}
-  50%{transform:scale(0.95)}
-  100%{transform:scale(1)}
-}
+/* Subtle press effect (replaces bouncy clickPulse) */
 @keyframes hoverLift{
   0%{transform:translateY(0)}
   100%{transform:translateY(-2px)}
@@ -4511,10 +4499,10 @@ a, button, .card, .modal-trigger, .filter-btn, .icon-btn, .project-link, .text-l
   transition:transform .2s ease, box-shadow .2s ease;
 }
 a:hover, button:hover, .card:hover, .modal-trigger:hover, .filter-btn:hover, .icon-btn:hover, .project-link:hover, .text-link:hover, .nav-link:hover, .brand:hover, .social-icon:hover{
-  transform:translateY(-1px);
+  transform:translateY(-2px);
 }
 a:active, button:active, .card:active, .modal-trigger:active, .filter-btn:active, .icon-btn:active, .project-link:active, .text-link:active, .nav-link:active, .brand:active, .social-icon:active{
-  animation:clickPulse 0.2s ease;
+  transform:translateY(0) scale(.97);
 }
 
 /* Section-specific styles */

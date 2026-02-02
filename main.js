@@ -215,34 +215,20 @@ function setHeaderVisibility() {
   else header.classList.remove('is-scrolled');
 }
 
-// Store scroll position when menu opens
-let scrollPosition = 0;
-
-function closeMobileNav(options = {}) {
-  const { restoreScroll = true } = options;
+// Mobile navigation open/close
+function closeMobileNav() {
   if (!nav || !navToggle) return;
   nav.classList.remove('is-open');
   navToggle.setAttribute('aria-expanded', 'false');
   // Restore body scrolling
   document.body.style.overflow = '';
-  document.body.style.position = '';
-  document.body.style.top = '';
-  document.body.style.width = '';
-  if (restoreScroll) {
-    window.scrollTo(0, scrollPosition);
-  }
 }
 
 function openMobileNav() {
   if (!nav || !navToggle) return;
   nav.classList.add('is-open');
   navToggle.setAttribute('aria-expanded', 'true');
-  // Prevent body scrolling when menu is open
-  scrollPosition = window.scrollY;
   document.body.style.overflow = 'hidden';
-  document.body.style.position = 'fixed';
-  document.body.style.top = `-${scrollPosition}px`;
-  document.body.style.width = '100%';
 }
 
 if (navToggle && nav) {
@@ -258,9 +244,8 @@ if (navToggle && nav) {
     // Only run this logic when the mobile nav is actually open
     if (!nav.classList.contains('is-open')) return;
     if (a.getAttribute('href')?.startsWith('#')) {
-      // Let the smooth scroll handler control the final scroll position,
-      // so don't restore the previous scroll position here.
-      closeMobileNav({ restoreScroll: false });
+      // Close the mobile nav; smooth scroll handler will manage scrolling
+      closeMobileNav();
     }
   });
 
@@ -478,31 +463,6 @@ function setupMouseScrollIndicator() {
         block: 'start'
       });
     }
-  });
-  
-  // Hide scroll indicator after scrolling
-  let scrollTimeout;
-  window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY > 100;
-    
-    if (scrolled) {
-      scrollIndicator.style.opacity = '0';
-      scrollIndicator.style.pointerEvents = 'none';
-    } else {
-      scrollIndicator.style.opacity = '1';
-      scrollIndicator.style.pointerEvents = 'auto';
-    }
-    
-    // Clear existing timeout
-    clearTimeout(scrollTimeout);
-    
-    // Hide after scrolling stops
-    scrollTimeout = setTimeout(() => {
-      if (window.scrollY > 100) {
-        scrollIndicator.style.opacity = '0';
-        scrollIndicator.style.pointerEvents = 'none';
-      }
-    }, 150);
   });
 }
 
@@ -840,90 +800,92 @@ const contactForm = document.getElementById('contact-form');
 const formMessage = document.getElementById('form-message');
 
 if (contactForm) {
-  contactForm.addEventListener('submit', async function(e) {
+  contactForm.addEventListener('submit', function(e) {
     e.preventDefault();
-
+    
+    // Get form data
     const formData = new FormData(contactForm);
-    const name = String(formData.get('name') || '').trim();
-    const email = String(formData.get('email') || '').trim();
-    const subject = String(formData.get('subject') || '').trim();
-    const message = String(formData.get('message') || '').trim();
-    const website = String(formData.get('website') || '').trim(); // Honeypot field
-
-    // Honeypot spam check
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const subject = formData.get('subject');
+    const message = formData.get('message');
+    const website = formData.get('website'); // Honeypot field
+    
+    // Check honeypot field for spam
     if (website) {
       showFormMessage('Spam detected!', 'error');
       return;
     }
-
-    // Client-side validation (mirrors server checks)
+    
+    // Validate form
     if (!name || !email || !subject || !message) {
       showFormMessage('Please fill in all required fields.', 'error');
       return;
     }
-
+    
     if (!isValidEmail(email)) {
       showFormMessage('Please enter a valid email address.', 'error');
       return;
     }
-
-    if (message.length < 10) {
-      showFormMessage('Message must be at least 10 characters.', 'error');
-      return;
-    }
-
+    
+    // Show loading state
     const submitBtn = contactForm.querySelector('.submit-btn');
-    if (!submitBtn) return;
-
-    const originalBtnHTML = submitBtn.innerHTML;
+    const originalBtnText = submitBtn.innerHTML;
     submitBtn.innerHTML = '<span>Sending...</span><div class="loading-spinner"></div>';
     submitBtn.disabled = true;
 
-    try {
-      const response = await fetch('contact.php', {
-        method: 'POST',
-        body: formData
-      });
+    // Send data to a non-PHP backend (e.g. Formspree)
+    const endpoint =
+      contactForm.getAttribute('action') || 'https://formspree.io/f/xrelywad';
 
-      let data = null;
-      try {
-        data = await response.json();
-      } catch {
-        // Non-JSON response
-      }
+    fetch(endpoint, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+      },
+      body: formData,
+    })
+      .then((response) =>
+        response
+          .json()
+          .catch(() => ({}))
+          .then((data) => ({
+            ok: response.ok,
+            status: response.status,
+            data,
+          })),
+      )
+      .then(({ ok, data }) => {
+        if (ok) {
+          showFormMessage(
+            'Message sent successfully! I\'ll get back to you soon.',
+            'success',
+          );
+          contactForm.reset();
+        } else {
+          const errorMessage =
+            data?.error ||
+            'Sorry, there was a problem sending your message. Please try again later or email me directly.';
+          showFormMessage(errorMessage, 'error');
+        }
+      })
+      .catch(() => {
+        showFormMessage(
+          'Network error. Please check your connection and try again.',
+          'error',
+        );
+      })
+      .finally(() => {
+        // Reset button
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
 
-      if (!response.ok || !data || data.success === false) {
-        const errorMsg = (data && data.error) || 'Failed to send message. Please try again later.';
-        showFormMessage(errorMsg, 'error');
-        return;
-      }
-
-      // Success
-      showFormMessage(data.message || 'Message sent successfully! I\'ll get back to you soon.', 'success');
-      contactForm.reset();
-
-      // Reset character counter if present
-      if (charCount) {
-        charCount.textContent = '0';
-      }
-      if (characterCounter) {
-        characterCounter.classList.remove('warning', 'danger');
-      }
-
-      // Clear message after 5 seconds
-      setTimeout(() => {
-        if (formMessage) {
+        // Clear message after 5 seconds
+        setTimeout(() => {
           formMessage.textContent = '';
           formMessage.className = 'form-message';
-        }
-      }, 5000);
-    } catch (error) {
-      console.error('Error submitting contact form:', error);
-      showFormMessage('Network error. Please try again later.', 'error');
-    } finally {
-      submitBtn.innerHTML = originalBtnHTML;
-      submitBtn.disabled = false;
-    }
+        }, 5000);
+      });
   });
 }
 
