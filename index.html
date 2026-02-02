@@ -1,11 +1,13 @@
 
+
+
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
     <meta name="description" content="Modern minimalist personal portfolio showcasing work, projects, experience, and contact details." />
-    <meta name="theme-color" content="#0b1220" />
+    <meta name="theme-color" content="#ffffff" />
 
     <meta property="og:title" content="Hari Shahi — Portfolio" />
     <meta property="og:description" content="Modern minimalist personal portfolio showcasing work, projects, experience, and contact details." />
@@ -30,13 +32,29 @@
 
     <header class="site-header" id="top">
       <div class="container header-inner">
-        <a class="brand" href="#home" aria-label="Go to Home">
-          <img class="brand-mark" src="logo.png" alt="Logo" width="34" height="34" />
-          <span class="brand-text">
-            <span class="brand-name">Hari Shahi</span>
-            <span class="brand-role">Designer / Developer</span>
-          </span>
+        <a class="brand" href="#home" aria-label="Home">
+          <img src="logo.png" alt="Hari Shahi Logo" width="40" height="40" class="brand-mark" loading="lazy" />
+          <div class="brand-text">
+            <h1 class="brand-name">Hari Shahi</h1>
+            <span class="brand-role">Design • Development • Strategy</span>
+          </div>
         </a>
+
+        <!-- Theme Toggle Button -->
+        <button class="theme-toggle" type="button" aria-label="Toggle theme" title="Toggle light/dark mode">
+          <div class="theme-toggle-track">
+            <div class="theme-toggle-thumb">
+              <svg class="theme-icon sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+              </svg>
+              <svg class="theme-icon moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+              </svg>
+            </div>
+          </div>
+          <span class="theme-toggle-label">Theme</span>
+        </button>
 
         <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
           <span class="nav-toggle-bar"></span>
@@ -87,7 +105,7 @@
         <div class="container hero-inner">
           <div class="hero-left">
             <div class="hero-profile">
-              <img src="pp.jpg" alt="Profile" class="profile-image" />
+              <img src="pp.png" alt="Profile" class="profile-image" />
               <div class="profile-overlay">
                 <div class="profile-info">
                   <h3>Hari Shahi</h3>
@@ -132,7 +150,7 @@
                 <div class="meta-icon color-3">📍</div>
                 <div class="meta-content">
                   <span class="meta-k">Location</span>
-                  <span class="meta-v color-4">Pokhara</span>
+                  <span class="meta-v color-4">Your City</span>
                 </div>
               </div>
               <div class="meta-item featured">
@@ -199,7 +217,7 @@
         </div>
 
         <!-- Mouse Scroll Icon -->
-        <div class="scroll-indicator" aria-label="Scroll down" onclick="scrollToNextSection()">
+        <div class="scroll-indicator" aria-label="Scroll down">
           <div class="mouse">
             <div class="wheel"></div>
           </div>
@@ -211,86 +229,88 @@
         </div>
       </section>
 
-      <section class="section" id="about">
+      <section class="section compact" id="about">
         <div class="container">
-          <div class="section-head">
+          <div class="section-head compact">
             <h2 class="section-title">About</h2>
-            <p class="section-subtitle">A compelling story, measurable impact, and the principles that guide my work.</p>
+            <p class="section-subtitle">Designer, developer, and creative problem-solver</p>
           </div>
 
-          <div class="grid two about-grid">
-            <div class="card story-card">
-              <div class="card-header">
-                <h3 class="card-title">Who I am</h3>
-                <div class="card-icon">👨‍💻</div>
+          <div class="about-compact-grid">
+            <!-- Who I Am Box -->
+            <div class="about-box">
+              <div class="about-box-header">
+                <div class="about-box-icon">👨‍💻</div>
+                <h3 class="about-box-title">Who I Am</h3>
               </div>
-              <p class="card-text enhanced">
-                I design and build modern web experiences with a minimalist aesthetic, focusing on clarity, accessibility, and performance. I enjoy turning complex problems into elegant solutions.
+              <p class="about-box-text">
+                I design and build modern web experiences with minimalist aesthetic, focusing on clarity, accessibility, and performance.
               </p>
-              <div class="about-points premium">
-                <div class="about-point featured">
-                  <div class="point-icon">🎯</div>
-                  <div class="point-content">
-                    <span class="point-title">Product-minded</span>
-                    <span class="point-desc">Design and development with business impact</span>
-                  </div>
+              <div class="about-box-skills">
+                <span class="skill-tag">UI/UX Design</span>
+                <span class="skill-tag">Frontend Dev</span>
+                <span class="skill-tag">Performance</span>
+              </div>
+            </div>
+
+            <!-- Core Values Box -->
+            <div class="about-box">
+              <div class="about-box-header">
+                <div class="about-box-icon">🎯</div>
+                <h3 class="about-box-title">Core Values</h3>
+              </div>
+              <ul class="about-box-list">
+                <li>Product-minded development with business impact</li>
+                <li>Clean systems and scalable components</li>
+                <li>Performance, SEO, and accessibility by default</li>
+              </ul>
+            </div>
+
+            <!-- Quick Facts Box -->
+            <div class="about-box">
+              <div class="about-box-header">
+                <div class="about-box-icon">📊</div>
+                <h3 class="about-box-title">Quick Facts</h3>
+              </div>
+              <div class="facts-compact">
+                <div class="fact-item">
+                  <span class="fact-number">6+</span>
+                  <span class="fact-label">Years Experience</span>
                 </div>
-                <div class="about-point featured">
-                  <div class="point-icon">🎨</div>
-                  <div class="point-content">
-                    <span class="point-title">Clean systems</span>
-                    <span class="point-desc">UI systems + scalable components</span>
-                  </div>
+                <div class="fact-item">
+                  <span class="fact-number">40+</span>
+                  <span class="fact-label">Projects Shipped</span>
                 </div>
-                <div class="about-point featured">
-                  <div class="point-icon">⚡</div>
-                  <div class="point-content">
-                    <span class="point-title">Performance first</span>
-                    <span class="point-desc">SEO, accessibility, and speed by default</span>
-                  </div>
+                <div class="fact-item">
+                  <span class="fact-number">15+</span>
+                  <span class="fact-label">Happy Clients</span>
                 </div>
               </div>
             </div>
 
-            <div class="card facts-card">
-              <div class="card-header">
-                <h3 class="card-title">Fast facts</h3>
-                <div class="card-icon">📊</div>
+            <!-- Expertise Box -->
+            <div class="about-box">
+              <div class="about-box-header">
+                <div class="about-box-icon">⚡</div>
+                <h3 class="about-box-title">Expertise</h3>
               </div>
-              <div class="facts enhanced">
-                <div class="fact featured">
-                  <div class="fact-icon">🚀</div>
-                  <div class="fact-content">
-                    <span class="fact-k">Projects</span>
-                    <span class="fact-v">40+ delivered</span>
-                  </div>
+              <div class="expertise-grid">
+                <div class="expertise-item">
+                  <span class="expertise-icon">🎨</span>
+                  <span class="expertise-name">Design Systems</span>
                 </div>
-                <div class="fact featured">
-                  <div class="fact-icon">🏢</div>
-                  <div class="fact-content">
-                    <span class="fact-k">Industries</span>
-                    <span class="fact-v">SaaS, eCommerce, Education</span>
-                  </div>
+                <div class="expertise-item">
+                  <span class="expertise-icon">🚀</span>
+                  <span class="expertise-name">React/Vue</span>
                 </div>
-                <div class="fact featured">
-                  <div class="fact-icon">💡</div>
-                  <div class="fact-content">
-                    <span class="fact-k">Focus</span>
-                    <span class="fact-v">UX, frontend, design systems</span>
-                  </div>
+                <div class="expertise-item">
+                  <span class="expertise-icon">📱</span>
+                  <span class="expertise-name">Responsive</span>
                 </div>
-                <div class="fact featured">
-                  <div class="fact-icon">🛠️</div>
-                  <div class="fact-content">
-                    <span class="fact-k">Tooling</span>
-                    <span class="fact-v">Modern, maintainable workflows</span>
-                  </div>
+                <div class="expertise-item">
+                  <span class="expertise-icon">⚡</span>
+                  <span class="expertise-name">Performance</span>
                 </div>
-              </div>
-
-              <div class="about-cta">
-                <a class="btn tertiary" href="#contact">Let’s work together</a>
-                <a class="btn ghost" href="#experience">See experience</a>
               </div>
             </div>
           </div>
@@ -688,20 +708,20 @@
                     <div class="logo-placeholder">🚀</div>
                   </div>
                   <div class="timeline-meta">
-                    <h3 class="position-title">Junior Frontend Developer</h3>
-                    <div class="company-name">Remote</div>
+                    <h3 class="position-title">Senior Frontend Developer</h3>
+                    <div class="company-name">Tech Company</div>
                     <div class="timeline-date">
-                      <span class="date-badge current">2025 — Present</span>
+                      <span class="date-badge current">2023 — Present</span>
                       <span class="location-badge">Remote</span>
                     </div>
                   </div>
                 </div>
                 <div class="timeline-content">
                   <ul class="achievement-list">
-                    <li>Architected performant UI patterns and reusable components</li>
+                    <li>Architected and shipped performant UI patterns and reusable components</li>
                     <li>Improved Lighthouse scores by 40% and optimized conversion flows</li>
                     <li>Led cross-functional collaboration with design and product teams</li>
-                    <li>Mentored Beginner and established best practices</li>
+                    <li>Mentored junior developers and established best practices</li>
                   </ul>
                   <div class="tech-stack">
                     <span class="tech-tag primary">React</span>
@@ -712,12 +732,12 @@
                 <div class="timeline-footer">
                   <div class="stats-row">
                     <div class="stat-item">
-                      <span class="stat-number">30%</span>
+                      <span class="stat-number">40%</span>
                       <span class="stat-label">Performance Boost</span>
                     </div>
                     <div class="stat-item">
-                      <span class="stat-number">NO</span>
-                      <span class="stat-label">Team members</span>
+                      <span class="stat-number">5+</span>
+                      <span class="stat-label">Team Members</span>
                     </div>
                   </div>
                 </div>
@@ -738,7 +758,7 @@
                     <h3 class="position-title">Product Designer</h3>
                     <div class="company-name">Design Studio</div>
                     <div class="timeline-date">
-                      <span class="date-badge">2023 — 2026</span>
+                      <span class="date-badge">2020 — 2023</span>
                       <span class="location-badge">On-site</span>
                     </div>
                   </div>
@@ -785,15 +805,15 @@
                     <h3 class="position-title">Freelance Developer</h3>
                     <div class="company-name">Independent</div>
                     <div class="timeline-date">
-                      <span class="date-badge">2024 — present</span>
+                      <span class="date-badge">2018 — 2020</span>
                       <span class="location-badge">Remote</span>
                     </div>
                   </div>
                 </div>
                 <div class="timeline-content">
                   <ul class="achievement-list">
-                    <li>Few websites Delivered for businesses</li>
-                    <li>Built landing pages optimized for speed (71+ Lighthouse scores)</li>
+                    <li>Delivered 20+ websites and brand kits for small businesses</li>
+                    <li>Built landing pages optimized for speed (95+ Lighthouse scores)</li>
                     <li>Managed client relationships and project timelines</li>
                     <li>Implemented SEO strategies increasing organic traffic by 150%</li>
                   </ul>
@@ -806,7 +826,7 @@
                 <div class="timeline-footer">
                   <div class="stats-row">
                     <div class="stat-item">
-                      <span class="stat-number">few</span>
+                      <span class="stat-number">20+</span>
                       <span class="stat-label">Happy Clients</span>
                     </div>
                     <div class="stat-item">
@@ -831,23 +851,23 @@
           <div class="grid two education-grid">
             <div class="card degree">
               <div class="card-icon">🎓</div>
-              <h3 class="card-title">BE_IT Student</h3>
-              <div class="muted">Pokhara University • 2024 — present</div>
-              <p class="card-text">semester-III</p>
+              <h3 class="card-title">Bachelor’s Degree</h3>
+              <div class="muted">University Name • 2014 — 2018</div>
+              <p class="card-text">Major in your field. Highlight any honors, clubs, or notable work.</p>
               <div class="achievement-bar">
                 <div class="achievement-progress" style="width: 85%"></div>
               </div>
             </div>
-            <div class="card certificates">
+            <div class="card certifications">
               <div class="card-icon">🏆</div>
-              <h3 class="card-title">Certificates</h3>
-              <div class="muted">2022 — Present</div>
+              <h3 class="card-title">Certifications</h3>
+              <div class="muted">2021 — Present</div>
               <div class="chips enhanced">
-                <span class="chip glow">SEE</span>
-                <span class="chip glow">11</span>
-                <span class="chip glow">12(NEB)</span>
+                <span class="chip glow">Google UX</span>
+                <span class="chip glow">Frontend</span>
+                <span class="chip glow">Accessibility</span>
               </div>
-              <div class="mini-note">   excellence</div>
+              <div class="mini-note">Replace with your real credentials.</div>
             </div>
           </div>
         </div>
@@ -1194,118 +1214,112 @@
         </div>
       </section>
 
-      <section class="section" id="contact">
+      <section class="section compact" id="contact">
         <div class="container">
-          <div class="section-head">
+          <div class="section-head compact">
             <h2 class="section-title">Contact</h2>
-            <p class="section-subtitle">Have a project in mind? I'd love to hear about it. Send me a message and let's create something amazing together.</p>
+            <p class="section-subtitle">Have a project in mind? Let's create something amazing together</p>
           </div>
 
-          <div class="contact-container">
-            <!-- Contact Information Card -->
-            <div class="contact-info-card">
-              <div class="contact-header">
-                <div class="contact-icon">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                  </svg>
-                </div>
-                <div>
-                  <h3>Get in Touch</h3>
-                  <p>I'm always interested in hearing about new projects and opportunities.</p>
-                </div>
+          <div class="contact-compact-grid">
+            <!-- Contact Info Box -->
+            <div class="contact-box">
+              <div class="contact-box-header">
+                <div class="contact-box-icon">📧</div>
+                <h3 class="contact-box-title">Get in Touch</h3>
               </div>
-
-              <div class="contact-items">
-                <div class="contact-item">
-                  <div class="item-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                    </svg>
-                  </div>
-                  <div class="item-content">
-                    <span class="item-label">Email</span>
-                    <a href="mailto:harishahi592@gmail.com" class="item-value">harishahi592@gmail.com</a>
+              <div class="contact-info-list">
+                <div class="contact-info-item">
+                  <span class="contact-info-icon">📧</span>
+                  <div class="contact-info-content">
+                    <span class="contact-info-label">Email</span>
+                    <a href="mailto:harishahi592@gmail.com" class="contact-info-value">harishahi592@gmail.com</a>
                   </div>
                 </div>
-
-                <div class="contact-item">
-                  <div class="item-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
-                    </svg>
-                  </div>
-                  <div class="item-content">
-                    <span class="item-label">Phone</span>
-                    <a href="tel:+10000000000" class="item-value">9860892417</a>
+                <div class="contact-info-item">
+                  <span class="contact-info-icon">📱</span>
+                  <div class="contact-info-content">
+                    <span class="contact-info-label">Phone</span>
+                    <a href="tel:+9860892417" class="contact-info-value">9860892417</a>
                   </div>
                 </div>
-
-                <div class="contact-item">
-                  <div class="item-icon">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                    </svg>
-                  </div>
-                  <div class="item-content">
-                    <span class="item-label">Location</span>
-                    <span class="item-value">Pokhara , nepal</span>
+                <div class="contact-info-item">
+                  <span class="contact-info-icon">📍</span>
+                  <div class="contact-info-content">
+                    <span class="contact-info-label">Location</span>
+                    <span class="contact-info-value">Available Worldwide</span>
                   </div>
                 </div>
               </div>
-
             </div>
 
-            <!-- Contact Form Card -->
-            <div class="contact-form-card">
-              <div class="form-header">
-                <h3>Send Message</h3>
-                <p>Fill out the form below and I'll get back to you as soon as possible.</p>
+            <!-- Quick Message Box -->
+            <div class="contact-box">
+              <div class="contact-box-header">
+                <div class="contact-box-icon">💬</div>
+                <h3 class="contact-box-title">Quick Message</h3>
               </div>
-
-              <form class="contact-form" id="contact-form" novalidate>
-                <div class="form-row">
-                  <div class="form-group">
-                    <label for="name" class="form-label">Your Name *</label>
-                    <input type="text" id="name" name="name" required class="form-input" placeholder="Enter your full name..." />
-                  </div>
-                  <div class="form-group">
-                    <label for="email" class="form-label">Email Address *</label>
-                    <input type="email" id="email" name="email" required class="form-input" placeholder="***@example.com" />
-                  </div>
-                </div>
-
+              <form class="quick-contact-form" id="quick-contact-form">
                 <div class="form-group">
-                  <label for="subject" class="form-label">Subject *</label>
-                  <input type="text" id="subject" name="subject" required class="form-input" placeholder="Project Inquiry" />
+                  <input type="text" name="name" placeholder="Your Name" class="form-input compact" required />
                 </div>
-
                 <div class="form-group">
-                  <label for="message" class="form-label">Message *</label>
-                  <textarea id="message" name="message" rows="5" required class="form-input" placeholder="Tell me about your project..."></textarea>
+                  <input type="email" name="email" placeholder="Your Email" class="form-input compact" required />
                 </div>
-
-                <!-- Honeypot field for spam protection -->
-                <div class="form-group hidden" style="display: none;" aria-hidden="true">
-                  <label for="website">Website</label>
-                  <input type="text" id="website" name="website" tabindex="-1" autocomplete="off" />
+                <div class="form-group">
+                  <textarea name="message" placeholder="Your Message" class="form-textarea compact" rows="3" required></textarea>
                 </div>
-
-                <div class="form-actions">
-                  <button type="submit" class="submit-btn">
-                    <span>Send Message</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-                    </svg>
-                  </button>
-                </div>
-
-                <div class="form-message" id="form-message"></div>
+                <button type="submit" class="btn primary compact">Send Message</button>
               </form>
+            </div>
+
+            <!-- Social Links Box -->
+            <div class="contact-box">
+              <div class="contact-box-header">
+                <div class="contact-box-icon">🌐</div>
+                <h3 class="contact-box-title">Connect</h3>
+              </div>
+              <div class="social-links-compact">
+                <a href="https://linkedin.com" class="social-link-compact" target="_blank" rel="noopener">
+                  <span class="social-icon">💼</span>
+                  <span class="social-name">LinkedIn</span>
+                </a>
+                <a href="https://github.com" class="social-link-compact" target="_blank" rel="noopener">
+                  <span class="social-icon">💻</span>
+                  <span class="social-name">GitHub</span>
+                </a>
+                <a href="https://dribbble.com" class="social-link-compact" target="_blank" rel="noopener">
+                  <span class="social-icon">🎨</span>
+                  <span class="social-name">Dribbble</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Response Time Box -->
+            <div class="contact-box">
+              <div class="contact-box-header">
+                <div class="contact-box-icon">⏰</div>
+                <h3 class="contact-box-title">Response Time</h3>
+              </div>
+              <div class="response-info">
+                <div class="response-item">
+                  <span class="response-time">24-48 hours</span>
+                  <span class="response-desc">Email responses</span>
+                </div>
+                <div class="response-item">
+                  <span class="response-time">Same day</span>
+                  <span class="response-desc">Urgent inquiries</span>
+                </div>
+                <div class="response-item">
+                  <span class="response-time">1-2 days</span>
+                  <span class="response-desc">Project proposals</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
+
     </main>
 
     <footer class="site-footer">

@@ -3,6 +3,94 @@ const nav = document.getElementById('site-nav');
 const navToggle = document.querySelector('.nav-toggle');
 const yearEl = document.getElementById('year');
 const toastEl = document.getElementById('toast');
+const themeToggle = document.querySelector('.theme-toggle');
+
+// Theme Management System
+const themeManager = {
+  currentTheme: 'light',
+  
+  init() {
+    this.loadTheme();
+    this.setupToggle();
+    this.setupSystemPreference();
+  },
+  
+  loadTheme() {
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    this.setTheme(savedTheme);
+  },
+  
+  setTheme(theme) {
+    this.currentTheme = theme;
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+    
+    // Update toggle button state
+    const isActive = theme === 'light';
+    themeToggle.classList.toggle('active', isActive);
+    
+    // Add switching animation
+    themeToggle.classList.add('switching');
+    setTimeout(() => {
+      themeToggle.classList.remove('switching');
+    }, 600);
+    
+    // Update meta theme-color
+    this.updateMetaThemeColor(theme);
+    
+    // Show toast notification
+    this.showToast(theme === 'light' ? '☀️ Light mode activated' : '🌙 Dark mode activated');
+  },
+  
+  toggleTheme() {
+    const newTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+    this.setTheme(newTheme);
+  },
+  
+  setupToggle() {
+    themeToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      this.toggleTheme();
+    });
+    
+    // Add keyboard support
+    themeToggle.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        this.toggleTheme();
+      }
+    });
+  },
+  
+  setupSystemPreference() {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: light)');
+    
+    mediaQuery.addEventListener('change', (e) => {
+      // Only auto-switch if user hasn't manually set a preference
+      if (!localStorage.getItem('theme')) {
+        this.setTheme(e.matches ? 'light' : 'dark');
+      }
+    });
+  },
+  
+  updateMetaThemeColor(theme) {
+    const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+    if (metaThemeColor) {
+      metaThemeColor.content = theme === 'light' ? '#ffffff' : '#030812';
+    }
+  },
+  
+  showToast(message) {
+    if (toastEl) {
+      toastEl.textContent = message;
+      toastEl.classList.add('show');
+      
+      setTimeout(() => {
+        toastEl.classList.remove('show');
+      }, 3000);
+    }
+  }
+};
 
 // Enhanced animation and interaction system
 const animationSystem = {
@@ -123,7 +211,7 @@ function clamp(v, min, max) {
 function setHeaderVisibility() {
   const y = window.scrollY || 0;
   if (!header) return;
-  if (y > 70) header.classList.add('is-scrolled');
+  if (y > 50) header.classList.add('is-scrolled');
   else header.classList.remove('is-scrolled');
 }
 
@@ -291,28 +379,6 @@ dots.forEach((d) => {
 
 setTestimonial(0);
 
-// Scroll to next section function
-function scrollToNextSection() {
-  const currentSection = document.querySelector('#home');
-  const nextSection = document.querySelector('#about');
-  
-  if (nextSection) {
-    nextSection.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
-    });
-  }
-}
-
-// Initialize scroll indicator
-document.addEventListener('DOMContentLoaded', () => {
-  const scrollIndicator = document.querySelector('.scroll-indicator');
-  if (scrollIndicator) {
-    scrollIndicator.style.cursor = 'pointer';
-    scrollIndicator.addEventListener('click', scrollToNextSection);
-  }
-});
-
 // Simple email function
 function sendEmail() {
   const name = document.getElementById('name').value.trim();
@@ -373,6 +439,50 @@ function setFormNote(msg, isError) {
 }
 
 if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+// Mouse Scroll Indicator
+function setupMouseScrollIndicator() {
+  const scrollIndicator = document.querySelector('.scroll-indicator');
+  if (!scrollIndicator) return;
+  
+  scrollIndicator.addEventListener('click', () => {
+    const nextSection = document.querySelector('#about');
+    if (nextSection) {
+      nextSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  });
+  
+  // Hide scroll indicator after scrolling
+  let scrollTimeout;
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY > 100;
+    
+    if (scrolled) {
+      scrollIndicator.style.opacity = '0';
+      scrollIndicator.style.pointerEvents = 'none';
+    } else {
+      scrollIndicator.style.opacity = '1';
+      scrollIndicator.style.pointerEvents = 'auto';
+    }
+    
+    // Clear existing timeout
+    clearTimeout(scrollTimeout);
+    
+    // Hide after scrolling stops
+    scrollTimeout = setTimeout(() => {
+      if (window.scrollY > 100) {
+        scrollIndicator.style.opacity = '0';
+        scrollIndicator.style.pointerEvents = 'none';
+      }
+    }, 150);
+  });
+}
+
+// Initialize mouse scroll indicator
+setupMouseScrollIndicator();
 
 setHeaderVisibility();
 window.addEventListener('scroll', () => {
@@ -784,6 +894,7 @@ function isValidEmail(email) {
 
 // Initialize animation system
 document.addEventListener('DOMContentLoaded', () => {
+  themeManager.init();
   animationSystem.init();
   
   // Hide loading screen after page load
