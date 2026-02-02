@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Practical steps to improve perceived performance and real metrics." />
+  <meta name="theme-color" content="#0b1220" />
+
+  <meta property="og:title" content="Speed as a product feature" />
+  <meta property="og:description" content="Practical steps to improve perceived performance and real metrics." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://yoursite.com/blog/speed-product-feature.html" />
+
+  <title>Speed as a product feature — Blog</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../blog.css" />
+  <script defer src="../main.js"></script>
+  <script defer src="../blog.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="brand" href="../index.html#home" aria-label="Go to Home">
+        <img class="brand-mark" src="../assets/logo.svg" alt="Logo" width="34" height="34" />
+        <span class="brand-text">
+          <span class="brand-name">Your Name</span>
+          <span class="brand-role">Designer / Developer</span>
+        </span>
+      </a>
+      <button class="blog-close" type="button" onclick="window.location.href='../index.html#blog'" aria-label="Close article">×</button>
+      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="site-nav">
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+        <span class="nav-toggle-bar"></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <a class="nav-link" href="../index.html#home">Home</a>
+        <a class="nav-link" href="../index.html#about">About</a>
+        <a class="nav-link" href="../index.html#skills">Skills</a>
+        <a class="nav-link" href="../index.html#services">Services</a>
+        <a class="nav-link" href="../index.html#portfolio">Portfolio</a>
+        <a class="nav-link" href="../index.html#projects">Projects</a>
+        <a class="nav-link" href="../index.html#experience">Experience</a>
+        <a class="nav-link" href="../index.html#education">Education</a>
+        <a class="nav-link" href="../index.html#achievements">Achievements</a>
+        <a class="nav-link" href="../index.html#testimonials">Testimonials</a>
+        <a class="nav-link" href="../index.html#blog">Blog</a>
+        <a class="nav-link" href="../index.html#gallery">Gallery</a>
+        <a class="nav-link" href="../index.html#contact">Contact</a>
+      </nav>
+    </div>
+    <div class="scroll-progress" aria-hidden="true"><span class="scroll-progress-bar"></span></div>
+  </header>
+
+  <main id="main">
+    <article class="article">
+      <div class="container article-inner">
+        <div class="article-header">
+          <div class="article-meta">
+            <span class="article-date">Dec 03, 2025</span>
+            <span class="article-tag">Performance</span>
+            <span class="article-read-time">7 min read</span>
+          </div>
+          <h1 class="article-title">Speed as a product feature</h1>
+          <p class="article-subtitle">Practical steps to improve perceived performance and real metrics.</p>
+        </div>
+
+        <div class="article-body">
+          <p>Speed isn’t a technical detail—it’s a product feature. Fast sites feel more trustworthy, convert better, and keep users engaged. Here’s how to treat performance as a first-class citizen in your product.</p>
+
+          <h2>Measure what matters</h2>
+          <p>Start with Core Web Vitals: LCP, FID/INP, CLS. Use tools like Lighthouse and WebPageTest. But don’t stop there—track perceived speed with user metrics like Time to Interactive and First Meaningful Paint.</p>
+
+          <h2>Optimize assets</h2>
+          <p>Compress images, serve next-gen formats, and lazy load everything below the fold. Use modern formats like WebP and AVIF. Preload critical resources and defer the rest.</p>
+
+          <blockquote>
+            “Every kilobyte saved is a millisecond earned. Treat assets as features, not afterthoughts.”
+          </blockquote>
+
+          <h2>Network strategy</h2>
+          <p>Use HTTP/2 or HTTP/3. Enable Brotli or Gzip compression. Cache aggressively with proper headers. Consider a CDN for global reach.</p>
+
+          <h2>Runtime performance</h2>
+          <p>Minimize JavaScript. Use tree shaking and code splitting. Defer non-critical scripts. Avoid layout thrashing by batching DOM reads and writes.</p>
+
+          <h2>Perceived performance</h2>
+          <p>Show content early with skeleton screens. Use progressive enhancement. Animate transitions smoothly to avoid jank. Even if real load time is unchanged, perceived speed can improve dramatically.</p>
+
+          <h2>Continuous monitoring</h2>
+          <p>Set up performance budgets in your build process. Monitor real-user metrics. Treat regressions as bugs. Make performance a team responsibility, not just an after-the-fact audit.</p>
+
+          <p>When you treat speed as a feature, you bake it into every decision—from design to deployment. Users notice. And they reward you with trust and engagement.</p>
+        </div>
+
+        <div class="article-footer">
+          <div class="author">
+            <div class="author-avatar" aria-hidden="true"></div>
+            <div class="author-info">
+              <div class="author-name">Your Name</div>
+              <div class="author-role">Designer / Developer</div>
+            </div>
+          </div>
+
+          <div class="article-actions">
+            <div class="social-share" aria-label="Share this article">
+              <button class="share-btn" data-share="twitter" aria-label="Share on Twitter">Twitter</button>
+              <button class="share-btn" data-share="linkedin" aria-label="Share on LinkedIn">LinkedIn</button>
+              <button class="share-btn" data-share="copy" aria-label="Copy link">Copy link</button>
+            </div>
+            <a class="btn secondary" href="../index.html#blog">← Back to Blog</a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <section class="section related">
+      <div class="container">
+        <div class="section-head">
+          <h2 class="section-title">Related articles</h2>
+        </div>
+        <div class="grid three">
+          <article class="card post">
+            <div class="post-top">
+              <span class="post-date">Jan 12, 2026</span>
+              <span class="post-tag">Design</span>
+            </div>
+            <h3 class="card-title">Minimal UI that still feels expressive</h3>
+            <p class="card-text">How to use typography, spacing, and color to build personality without clutter.</p>
+            <a class="text-link" href="minimal-ui-expressive.html">Read more</a>
+          </article>
+          <article class="card post">
+            <div class="post-top">
+              <span class="post-date">Nov 18, 2025</span>
+              <span class="post-tag">Career</span>
+            </div>
+            <h3 class="card-title">A clean workflow for creative engineering</h3>
+            <p class="card-text">A lightweight process that scales from solo work to teams.</p>
+            <a class="text-link" href="clean-workflow.html">Read more</a>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <img src="../assets/logo.svg" alt="Logo" width="26" height="26" />
+        <span>© <span id="year"></span> Your Name. All rights reserved.</span>
+      </div>
+      <div class="footer-social" aria-label="Social links">
+        <a class="text-link" href="https://linkedin.com/in/harishahi22" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a class="text-link" href="https://twitter.com/harishahi22" target="_blank" rel="noopener noreferrer">Twitter</a>
+        <a class="text-link" href="https://instagram.com/harishahi22" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a class="text-link" href="https://dribbble.com/harishahi22" target="_blank" rel="noopener noreferrer">Dribbble</a>
+        <a class="text-link" href="https://github.com/harishahi22" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+      <a class="text-link" href="#top">Back to top</a>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>
