@@ -3147,6 +3147,15 @@ input:focus,textarea:focus{border-color:rgba(20,184,166,.55);box-shadow:0 0 0 4p
     gap: 24px;
   }
   
+  /* Keep profile on left for tablets - good layout */
+  .hero-left {
+    order: 1;
+  }
+  
+  .hero-copy {
+    order: 2;
+  }
+  
   .hero-title {
     font-size: clamp(1.4rem, 4.5vw, 2.5rem);
   }
@@ -3203,16 +3212,16 @@ input:focus,textarea:focus{border-color:rgba(20,184,166,.55);box-shadow:0 0 0 4p
   
   .hero-inner {
     grid-template-columns: 1fr;
-    gap: 16px;
+    gap: 24px;
     text-align: center;
   }
   
   .hero-left {
-    order: 2;
+    order: 1; /* Profile at top */
   }
   
   .hero-copy {
-    order: 1;
+    order: 2; /* Content below profile */
   }
   
   .hero-title {
@@ -3317,487 +3326,111 @@ input:focus,textarea:focus{border-color:rgba(20,184,166,.55);box-shadow:0 0 0 4p
   }
 }
 
-/* Mobile Devices (480px - 600px) - Enhanced Mobile Layout */
+/* Mobile Devices (480px - 600px) */
 @media (max-width: 600px) {
   .container {
     padding: 0 16px;
   }
   
-  /* Hero Section - Mobile Profile Layout */
   .hero {
-    padding: 40px 0 30px;
-    min-height: auto;
+    padding: 30px 0 20px;
+    min-height: 50vh;
   }
   
   .hero-inner {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+    gap: 20px;
   }
   
   .hero-left {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    order: 1;
+    order: 1; /* Profile at top */
   }
   
   .hero-copy {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-    order: 2;
-    text-align: left;
-  }
-  
-  .hero-profile {
-    max-width: 200px;
-    width: 100%;
+    order: 2; /* Content below profile */
   }
   
   .profile-image {
-    width: 200px;
-    height: 200px;
-    border-radius: 20px;
-    object-fit: cover;
+    width: 100%;
+    height: 240px;
   }
   
-  .profile-overlay {
-    padding: 12px;
-  }
-  
-  .profile-info h3 {
-    font-size: 18px;
-    margin-bottom: 4px;
-  }
-  
-  .profile-info p {
-    font-size: 14px;
-  }
-  
-  .hero-greeting {
-    font-size: 14px;
-    margin-bottom: 12px;
+  .hero-profile {
+    max-width: 240px;
   }
   
   .hero-title {
-    font-size: clamp(1.8rem, 8vw, 2.2rem);
-    line-height: 1.1;
-    margin-bottom: 16px;
-  }
-  
-  .title-line {
-    display: block;
-    margin-bottom: 4px;
+    font-size: clamp(1.1rem, 5vw, 1.8rem);
   }
   
   .hero-subtitle {
-    font-size: 14px;
-    margin-bottom: 16px;
-  }
-  
-  .hero-detail {
-    font-size: 13px;
-    margin-bottom: 24px;
-  }
-  
-  .emphasis {
-    font-size: 13px;
+    font-size: clamp(0.8rem, 2.5vw, 0.95rem);
   }
   
   .hero-cta.enhanced {
     flex-direction: column;
-    align-items: stretch;
+    align-items: center;
     gap: 12px;
-    width: 100%;
   }
   
-  .btn {
-    padding: 12px 20px;
-    font-size: 14px;
+  .btn.primary.premium,
+  .btn.secondary.enhanced {
+    width: 100%;
+    max-width: 280px;
+    padding: 12px 24px;
+    font-size: 13px;
+  }
+  
+  .hero-meta.premium {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .meta-item.featured {
+    padding: 12px;
+  }
+  
+  .stat-card.featured {
+    padding: 20px;
+  }
+  
+  .stat-number {
+    font-size: 2rem;
+  }
+  
+  .hero-card-nav {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .nav-pill {
     width: 100%;
     justify-content: center;
-    border-radius: 12px;
-  }
-  
-  .btn-text {
-    font-size: 14px;
-  }
-  
-  .btn-icon {
-    font-size: 14px;
-  }
-  
-  /* Section Typography - Reduced sizes */
-  .section {
-    padding: 40px 0;
-  }
-  
-  .section-title {
-    font-size: clamp(1.5rem, 6vw, 2rem);
-    margin-bottom: 16px;
-  }
-  
-  .section-subtitle {
-    font-size: 14px;
-    margin-bottom: 32px;
-    line-height: 1.5;
-  }
-  
-  .section-head {
-    margin-bottom: 32px;
-  }
-  
-  /* Cards - Reduced sizes */
-  .card {
-    padding: 20px;
-    border-radius: 16px;
-  }
-  
-  .card-title {
-    font-size: clamp(1.1rem, 5vw, 1.3rem);
-    margin-bottom: 12px;
-  }
-  
-  .card-text {
-    font-size: 14px;
-    line-height: 1.5;
-  }
-  
-  /* Grid layouts - Single column */
-  .grid.two,
-  .grid.three {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  
-  /* About Section - Compact */
-  .about-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  
-  .story-card.compact,
-  .facts-card.compact {
-    padding: 20px;
-    max-height: none;
-  }
-  
-  .about-points.compact {
-    gap: 8px;
-    margin-top: 12px;
-  }
-  
-  .about-points.compact .about-point {
-    padding: 8px;
-    gap: 8px;
-  }
-  
-  .about-points.compact .point-icon {
-    font-size: 16px;
-    width: 28px;
-    height: 28px;
-  }
-  
-  .about-points.compact .point-title {
-    font-size: 13px;
-  }
-  
-  .about-points.compact .point-desc {
-    font-size: 11px;
-  }
-  
-  /* Contact Section - Compact */
-  .contact-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  
-  .contact-info-card.compact,
-  .contact-form-card.compact {
-    padding: 20px;
-    max-height: none;
-  }
-  
-  .contact-items.compact {
-    gap: 8px;
-    margin-top: 12px;
-  }
-  
-  .contact-items.compact .contact-item {
-    padding: 8px;
-    gap: 8px;
-  }
-  
-  .contact-items.compact .item-icon {
-    width: 28px;
-    height: 28px;
-    font-size: 16px;
-  }
-  
-  .contact-items.compact .item-label {
-    font-size: 11px;
-  }
-  
-  .contact-items.compact .item-value {
-    font-size: 12px;
-  }
-  
-  .contact-form.compact {
-    gap: 12px;
-  }
-  
-  .contact-form.compact .form-label {
-    font-size: 12px;
-    margin-bottom: 4px;
-  }
-  
-  .contact-form.compact .form-input {
-    padding: 8px 12px;
-    font-size: 13px;
-    border-radius: 8px;
-  }
-  
-  .form-actions.compact .submit-btn {
-    padding: 10px 16px;
-    font-size: 13px;
-  }
-  
-  /* Testimonials - Compact */
-  .testimonials-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  
-  .testimonial-card.compact {
-    padding: 20px;
-    max-height: none;
-  }
-  
-  .testimonial-card.compact .testimonial-quote {
-    font-size: 13px;
-  }
-  
-  .testimonial-card.compact .client-avatar {
-    width: 36px;
-    height: 36px;
-  }
-  
-  .testimonial-card.compact .client-name {
-    font-size: 13px;
-  }
-  
-  .testimonial-card.compact .client-role {
-    font-size: 11px;
-  }
-  
-  /* Skills Section - Compact */
-  .skills-grid {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-  
-  .skill-card {
     padding: 16px;
   }
   
-  .skill-name {
-    font-size: 13px;
-  }
-  
-  .skill-level {
-    font-size: 11px;
-  }
-  
-  /* Services Section - Compact */
-  .services-grid {
-    grid-template-columns: 1fr;
+  .section-head.row {
+    flex-direction: column;
     gap: 16px;
+    text-align: center;
   }
   
-  .service-card {
+  .scroller-controls {
+    justify-content: center;
+  }
+  
+  .testimonial.standard {
     padding: 20px;
+    min-height: 240px;
   }
   
-  .service-title {
-    font-size: clamp(1rem, 4.5vw, 1.2rem);
+  .testimonial-quote {
+    font-size: 15px;
   }
   
-  .service-description {
-    font-size: 13px;
-  }
-  
-  /* Portfolio Section - Compact */
-  .portfolio-grid {
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  
-  .project-card {
-    padding: 20px;
-  }
-  
-  .project-title {
-    font-size: clamp(1rem, 4.5vw, 1.2rem);
-  }
-  
-  .project-description {
-    font-size: 13px;
-  }
-  
-  /* Navigation - Mobile Optimized */
-  .site-header {
-    padding: 12px 0;
-  }
-  
-  .brand {
-    padding: 8px 12px;
-    gap: 8px;
-  }
-  
-  .brand-mark {
-    width: 32px;
-    height: 32px;
-  }
-  
-  .brand-name {
-    font-size: clamp(1rem, 4.5vw, 1.2rem);
-  }
-  
-  .brand-role {
-    font-size: 11px;
-  }
-  
-  .nav-link {
-    padding: 8px 12px;
-    font-size: 13px;
-  }
-  
-  /* Theme Toggle - Mobile */
-  .theme-toggle {
-    padding: 6px 10px;
-    gap: 6px;
-  }
-  
-  .theme-toggle-track {
-    width: 36px;
-    height: 20px;
-  }
-  
-  .theme-toggle-thumb {
-    width: 16px;
-    height: 16px;
-  }
-  
-  .theme-toggle-label {
-    font-size: 10px;
-  }
-  
-  /* Footer - Compact */
-  .site-footer {
-    padding: 32px 0;
-  }
-  
-  .footer-main {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-  
-  .footer-section h3 {
-    font-size: clamp(1rem, 4.5vw, 1.2rem);
-  }
-  
-  .footer-link {
-    font-size: 12px;
-    padding: 4px 0;
-  }
-  
-  /* Form elements - Compact */
-  .form-group {
-    margin-bottom: 12px;
-  }
-  
-  .form-label {
-    font-size: 12px;
-    margin-bottom: 4px;
-  }
-  
-  .form-input {
-    padding: 8px 12px;
-    font-size: 13px;
-    border-radius: 8px;
-  }
-  
-  /* Buttons - Compact */
-  .icon-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 14px;
-  }
-  
-  /* Tags - Compact */
-  .tag {
-    font-size: 10px;
-    padding: 2px 6px;
-  }
-  
-  /* Stats - Compact */
-  .stat-card {
-    padding: 16px;
-  }
-  
-  .stat-value {
-    font-size: clamp(1.2rem, 5vw, 1.5rem);
-  }
-  
-  .stat-label {
-    font-size: 11px;
-  }
-  
-  /* Timeline - Compact */
-  .timeline-item {
-    padding-left: 32px;
-  }
-  
-  .timeline-date {
-    font-size: 11px;
-  }
-  
-  .timeline-title {
-    font-size: clamp(0.9rem, 4vw, 1.1rem);
-  }
-  
-  .timeline-company {
-    font-size: 12px;
-  }
-  
-  .timeline-description {
-    font-size: 13px;
-  }
-  
-  /* Floating orbs - smaller on mobile */
-  .orb {
-    width: 60px;
-    height: 60px;
-  }
-  
-  .orb-1 {
-    width: 80px;
-    height: 80px;
-  }
-  
-  .orb-2 {
-    width: 60px;
-    height: 60px;
-  }
-  
-  .orb-3 {
+  .client-avatar img {
     width: 40px;
     height: 40px;
   }
-}
   
   .icon-btn.premium {
     width: 36px;
@@ -3836,124 +3469,184 @@ input:focus,textarea:focus{border-color:rgba(20,184,166,.55);box-shadow:0 0 0 4p
   }
 }
 
-/* Small Mobile Devices (320px - 480px) - Ultra Compact Layout */
+/* Small Mobile Devices (320px - 480px) */
 @media (max-width: 480px) {
   .container {
     padding: 0 12px;
   }
   
-  /* Hero Section - Ultra Compact */
+  .section {
+    padding: 40px 0 30px;
+  }
+  
   .hero {
-    padding: 30px 0 20px;
+    padding: 25px 0 15px;
+    min-height: 45vh;
   }
   
   .hero-inner {
-    gap: 20px;
+    gap: 16px;
   }
   
-  .hero-profile {
-    max-width: 160px;
+  .hero-left {
+    order: 1; /* Profile at top */
+  }
+  
+  .hero-copy {
+    order: 2; /* Content below profile */
+  }
+  
+  .hero-title {
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    line-height: 1.2;
+  }
+  
+  .hero-subtitle {
+    font-size: clamp(0.75rem, 1.6vw, 0.85rem);
   }
   
   .profile-image {
-    width: 160px;
-    height: 160px;
-    border-radius: 16px;
+    width: 100%;
+    height: 220px;
   }
   
-  .profile-overlay {
-    padding: 8px;
+  .hero-profile {
+    max-width: 220px;
   }
   
   .profile-info h3 {
-    font-size: 16px;
+    font-size: 18px;
   }
   
   .profile-info p {
     font-size: 12px;
   }
   
-  .hero-greeting {
+  .btn.primary.premium {
+    padding: 14px 20px;
+    font-size: 13px;
+  }
+  
+  .hero-card.premium {
+    padding: 20px;
+  }
+  
+  .stat-card.featured {
+    padding: 16px;
+  }
+  
+  .stat-number {
+    font-size: 1.8rem;
+  }
+  
+  .stat-label {
     font-size: 12px;
-    margin-bottom: 10px;
-  }
-  
-  .hero-title {
-    font-size: clamp(1.5rem, 7vw, 1.8rem);
-    margin-bottom: 12px;
-  }
-  
-  .hero-subtitle {
-    font-size: 12px;
-    margin-bottom: 12px;
-  }
-  
-  .hero-detail {
-    font-size: 11px;
-    margin-bottom: 20px;
-  }
-  
-  .emphasis {
-    font-size: 11px;
-  }
-  
-  .hero-cta.enhanced {
-    gap: 10px;
-  }
-  
-  .btn {
-    padding: 10px 16px;
-    font-size: 13px;
-    border-radius: 10px;
-  }
-  
-  .btn-text {
-    font-size: 13px;
-  }
-  
-  .btn-icon {
-    font-size: 13px;
-  }
-  
-  /* Section Typography - Ultra Compact */
-  .section {
-    padding: 30px 0;
   }
   
   .section-title {
-    font-size: clamp(1.3rem, 6vw, 1.6rem);
-    margin-bottom: 12px;
+    font-size: clamp(1.1rem, 3vw, 1.8rem);
   }
   
   .section-subtitle {
-    font-size: 12px;
-    margin-bottom: 24px;
+    font-size: 14px;
   }
   
-  .section-head {
-    margin-bottom: 24px;
-  }
-  
-  /* Cards - Ultra Compact */
-  .card {
+  .testimonial.standard {
     padding: 16px;
-    border-radius: 12px;
+    min-height: 220px;
   }
   
-  .card-title {
-    font-size: clamp(1rem, 5vw, 1.2rem);
-    margin-bottom: 10px;
+  .testimonial-quote {
+    font-size: 14px;
+    line-height: 1.5;
   }
   
-  .card-text {
+  .client-name {
+    font-size: 14px;
+  }
+  
+  .client-role {
     font-size: 12px;
-    line-height: 1.4;
   }
   
-  /* Grid layouts - Single column with smaller gaps */
-  .grid.two,
-  .grid.three {
+  .client-stats .stat {
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+  
+  .testimonial-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .testimonial-rating {
+    order: 2;
+  }
+  
+  .testimonial-badge {
+    order: 1;
+  }
+  
+  .testimonial-client {
+    gap: 12px;
+  }
+  
+  .scroll-indicator {
+    bottom: 15px;
+  }
+  
+  .mouse {
+    width: 20px;
+    height: 32px;
+  }
+  
+  .wheel {
+    width: 3px;
+    height: 6px;
+  }
+  
+  .arrow span {
+    height: 6px;
+  }
+  
+  .site-header {
+    padding: 12px 0;
+  }
+  
+  .brand {
+    min-width: 200px;
+    padding: 6px 10px;
+  }
+  
+  .brand-name {
+    font-size: 13px;
+  }
+  
+  .brand-role {
+    font-size: 9px;
+  }
+  
+  .brand {
+    min-width: auto;
+  }
+  
+  .brand-name {
+    font-size: 16px;
+  }
+  
+  .brand-role {
+    font-size: 10px;
+  }
+  
+  .footer-main {
     grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  
+  .footer-section {
+    text-align: center;
+  }
   
   .social-icons {
     justify-content: center;
@@ -4154,12 +3847,72 @@ input:focus,textarea:focus{border-color:rgba(20,184,166,.55);box-shadow:0 0 0 4p
   /* Optimize scrolling performance */
   body {
     -webkit-overflow-scrolling: touch;
-    overscroll-behavior: contain;
+  }
+  
+  /* Header adjustments for mobile */
+  .site-header {
+    padding: 12px 0;
+  }
+  
+  .header-inner {
+    gap: 12px;
+  }
+  
+  .brand-text {
+    display: none; /* Hide brand text on very small screens */
+  }
+  
+  .brand-name {
+    font-size: 18px;
+  }
+  
+  .nav-toggle {
+    padding: 8px;
+  }
+  
+  /* Theme toggle mobile adjustments */
+  .theme-toggle {
+    padding: 6px 12px;
+    gap: 8px;
+  }
+  
+  .theme-toggle-label {
+    display: none; /* Hide label on mobile */
+  }
+  
+  /* Navigation mobile menu */
+  .site-nav {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 320px;
+    height: 100vh;
+    background: var(--panel);
+    transition: right 0.3s ease;
+    z-index: 1000;
+    padding: 80px 24px 24px;
+    overflow-y: auto;
+  }
+  
+  .site-nav.is-open {
+    right: 0;
+  }
+  
+  .nav-link {
+    display: block;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  
+  .nav-link:first-child {
+    border-top: 1px solid var(--line);
   }
   
   /* Prevent horizontal scroll */
   html, body {
     overflow-x: hidden;
+    overscroll-behavior: contain;
   }
   
   /* Better text rendering on mobile */
