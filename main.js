@@ -982,3 +982,30 @@ function initTypingAnimation() {
   // Start typing animation
   typeText();
 }
+
+// Character Counter for Message Field
+const messageTextarea = document.getElementById('message');
+const charCount = document.getElementById('char-count');
+const characterCounter = document.querySelector('.character-counter');
+
+if (messageTextarea && charCount && characterCounter) {
+  messageTextarea.addEventListener('input', function() {
+    const currentLength = this.value.length;
+    const maxLength = this.maxLength;
+    
+    // Update character count
+    charCount.textContent = currentLength;
+    
+    // Update counter color based on length
+    characterCounter.classList.remove('warning', 'danger');
+    
+    if (currentLength >= maxLength * 0.9) {
+      characterCounter.classList.add('danger');
+    } else if (currentLength >= maxLength * 0.7) {
+      characterCounter.classList.add('warning');
+    }
+  });
+  
+  // Initialize counter
+  charCount.textContent = messageTextarea.value.length;
+}
