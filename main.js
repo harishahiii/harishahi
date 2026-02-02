@@ -218,7 +218,8 @@ function setHeaderVisibility() {
 // Store scroll position when menu opens
 let scrollPosition = 0;
 
-function closeMobileNav() {
+function closeMobileNav(options = {}) {
+  const { restoreScroll = true } = options;
   if (!nav || !navToggle) return;
   nav.classList.remove('is-open');
   navToggle.setAttribute('aria-expanded', 'false');
@@ -227,7 +228,9 @@ function closeMobileNav() {
   document.body.style.position = '';
   document.body.style.top = '';
   document.body.style.width = '';
-  window.scrollTo(0, scrollPosition);
+  if (restoreScroll) {
+    window.scrollTo(0, scrollPosition);
+  }
 }
 
 function openMobileNav() {
@@ -251,7 +254,14 @@ if (navToggle && nav) {
 
   nav.addEventListener('click', (e) => {
     const a = e.target.closest('a');
-    if (a && a.getAttribute('href')?.startsWith('#')) closeMobileNav();
+    if (!a) return;
+    // Only run this logic when the mobile nav is actually open
+    if (!nav.classList.contains('is-open')) return;
+    if (a.getAttribute('href')?.startsWith('#')) {
+      // Let the smooth scroll handler control the final scroll position,
+      // so don't restore the previous scroll position here.
+      closeMobileNav({ restoreScroll: false });
+    }
   });
 
   document.addEventListener('click', (e) => {
@@ -830,62 +840,90 @@ const contactForm = document.getElementById('contact-form');
 const formMessage = document.getElementById('form-message');
 
 if (contactForm) {
-  contactForm.addEventListener('submit', function(e) {
+  contactForm.addEventListener('submit', async function(e) {
     e.preventDefault();
-    
-    // Get form data
+
     const formData = new FormData(contactForm);
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const subject = formData.get('subject');
-    const message = formData.get('message');
-    const website = formData.get('website'); // Honeypot field
-    
-    // Check honeypot field for spam
+    const name = String(formData.get('name') || '').trim();
+    const email = String(formData.get('email') || '').trim();
+    const subject = String(formData.get('subject') || '').trim();
+    const message = String(formData.get('message') || '').trim();
+    const website = String(formData.get('website') || '').trim(); // Honeypot field
+
+    // Honeypot spam check
     if (website) {
       showFormMessage('Spam detected!', 'error');
       return;
     }
-    
-    // Validate form
+
+    // Client-side validation (mirrors server checks)
     if (!name || !email || !subject || !message) {
       showFormMessage('Please fill in all required fields.', 'error');
       return;
     }
-    
+
     if (!isValidEmail(email)) {
       showFormMessage('Please enter a valid email address.', 'error');
       return;
     }
-    
-    // Show loading state
+
+    if (message.length < 10) {
+      showFormMessage('Message must be at least 10 characters.', 'error');
+      return;
+    }
+
     const submitBtn = contactForm.querySelector('.submit-btn');
-    const originalBtnText = submitBtn.innerHTML;
+    if (!submitBtn) return;
+
+    const originalBtnHTML = submitBtn.innerHTML;
     submitBtn.innerHTML = '<span>Sending...</span><div class="loading-spinner"></div>';
     submitBtn.disabled = true;
-    
-    // Simulate form submission (replace with actual implementation)
-    setTimeout(() => {
-      // Here you would normally send the data to your server
-      console.log('Form submitted:', { name, email, subject, message });
-      
-      // Show success message
-      showFormMessage('Message sent successfully! I\'ll get back to you soon.', 'success');
-      
-      // Reset form
+
+    try {
+      const response = await fetch('contact.php', {
+        method: 'POST',
+        body: formData
+      });
+
+      let data = null;
+      try {
+        data = await response.json();
+      } catch {
+        // Non-JSON response
+      }
+
+      if (!response.ok || !data || data.success === false) {
+        const errorMsg = (data && data.error) || 'Failed to send message. Please try again later.';
+        showFormMessage(errorMsg, 'error');
+        return;
+      }
+
+      // Success
+      showFormMessage(data.message || 'Message sent successfully! I\'ll get back to you soon.', 'success');
       contactForm.reset();
-      
-      // Reset button
-      submitBtn.innerHTML = originalBtnText;
-      submitBtn.disabled = false;
-      
+
+      // Reset character counter if present
+      if (charCount) {
+        charCount.textContent = '0';
+      }
+      if (characterCounter) {
+        characterCounter.classList.remove('warning', 'danger');
+      }
+
       // Clear message after 5 seconds
       setTimeout(() => {
-        formMessage.textContent = '';
-        formMessage.className = 'form-message';
+        if (formMessage) {
+          formMessage.textContent = '';
+          formMessage.className = 'form-message';
+        }
       }, 5000);
-      
-    }, 2000); // Simulate network delay
+    } catch (error) {
+      console.error('Error submitting contact form:', error);
+      showFormMessage('Network error. Please try again later.', 'error');
+    } finally {
+      submitBtn.innerHTML = originalBtnHTML;
+      submitBtn.disabled = false;
+    }
   });
 }
 
